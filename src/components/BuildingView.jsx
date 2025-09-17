@@ -9,25 +9,36 @@ export default function BuildingView({ snapshot, onCmd }) {
     );
   }
 
+  // Single source of truth for floor pixel height
+  const perFloor = 56; // px per floor (must match grid row height below)
   const floorCount =
     snapshot.elevators && snapshot.elevators.length
       ? snapshot.elevators[0].buildingFloors || 12
       : 12;
+
+  // floors top -> bottom for the left column
   const floors = Array.from({ length: floorCount }).map(
     (_, i) => floorCount - i
   );
 
+  // shaft width (one column per elevator)
+  const shaftWidth = 140;
+
   return (
     <div className="flex gap-6">
-      {/* Floor call buttons */}
+      {/* Floor call buttons column */}
       <div
-        className={`grid`}
-        style={{ gridTemplateRows: `repeat(${floorCount}, 56px)` }}
+        className="bg-transparent"
+        style={{
+          gridTemplateRows: `repeat(${floorCount}, ${perFloor}px)`,
+          display: "grid",
+        }}
       >
         {floors.map((floor) => (
           <div
             key={floor}
             className="flex items-center justify-between border-b border-gray-200 bg-white px-3 text-sm"
+            style={{ height: perFloor }}
           >
             <div className="font-medium text-gray-700">Floor {floor}</div>
 
@@ -83,15 +94,29 @@ export default function BuildingView({ snapshot, onCmd }) {
         ))}
       </div>
 
-      {/* Elevators */}
-      <div className="flex items-end gap-4">
-        {snapshot.elevators.map((e) => (
-          <Elevator
+      {/* Elevator shafts (one shaft per elevator) */}
+      <div className="flex items-end gap-6" style={{ alignItems: "flex-end" }}>
+        {snapshot.elevators.map((e, idx) => (
+          <div
             key={e.id}
-            elevator={e}
-            floorCount={floorCount}
-            onCmd={onCmd}
-          />
+            style={{
+              width: shaftWidth,
+              height: perFloor * floorCount + "px",
+              position: "relative",
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "center",
+            }}
+          >
+            <Elevator
+              elevator={e}
+              floorCount={floorCount}
+              perFloor={perFloor}
+              shaftWidth={shaftWidth}
+              onCmd={onCmd}
+              shaftIndex={idx}
+            />
+          </div>
         ))}
       </div>
     </div>

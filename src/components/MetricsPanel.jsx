@@ -1,9 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { toast } from "react-hot-toast";
 
+/**
+ * MetricsPanel
+ * - polls GET /api/metrics every `intervalMs`
+ * - shows numeric metrics and a small svg sparkline for avgWait
+ */
 export default function MetricsPanel({ pollInterval = 2000 }) {
   const [metrics, setMetrics] = useState(null);
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState([]); // keep last N avgWait samples
   const mounted = useRef(false);
   const MAX_HISTORY = 40;
 
@@ -16,23 +21,36 @@ export default function MetricsPanel({ pollInterval = 2000 }) {
         const res = await fetch(
           `${import.meta.env.VITE_REACT_APP_API_URL}/api/metrics`
         );
-        if (!res.ok) return;
+        if (!res.ok) {
+          // ignore transient errors
+          return;
+        }
         const data = await res.json();
         if (!mounted.current) return;
         const sample = {
           ts: Date.now(),
           avgWait: data.avgWait || 0,
+          maxWait: data.maxWait || 0,
           avgTravel: data.avgTravel || 0,
+          maxTravel: data.maxTravel || 0,
           servedCount: data.servedCount || 0,
           utilization: data.utilization || 0,
+          recentUtil: data.recentUtil || 0,
+          throughputPerMin: data.throughputPerMin || 0,
+          pendingCount: data.pendingCount || 0,
+          maxPendingWait: data.maxPendingWait || 0,
         };
         setMetrics(sample);
-        setHistory((h) => [...h, sample].slice(-MAX_HISTORY));
+        setHistory((h) => {
+          const next = [...h, sample].slice(-MAX_HISTORY);
+          return next;
+        });
       } catch (e) {
         toast.error("Error fetching metrics: " + e.message);
       }
     }
 
+    // initial fetch
     fetchMetrics();
     timer = setInterval(fetchMetrics, pollInterval);
 
@@ -42,10 +60,16 @@ export default function MetricsPanel({ pollInterval = 2000 }) {
     };
   }, [pollInterval]);
 
+  // helper: convert ms -> seconds with 2 decimals
   const toSec = (ms) => (ms ? (ms / 1000).toFixed(2) : "0.00");
 
+  // percent helper
+  const toPct = (frac) =>
+    typeof frac === "number" ? (frac * 100).toFixed(1) + "%" : "—";
+
+  // build sparkline path from history avgWait
   function sparklinePath(w = 160, h = 40) {
-    if (!history.length) return "";
+    if (!history || history.length === 0) return "";
     const values = history.map((s) => s.avgWait || 0);
     const max = Math.max(...values, 1);
     const min = Math.min(...values, 0);
@@ -80,16 +104,44 @@ export default function MetricsPanel({ pollInterval = 2000 }) {
         </div>
 
         <div className="bg-gray-50 rounded-md p-2">
+          <div className="text-xs text-gray-500">Max Wait (s)</div>
+          <div className="text-lg font-bold">
+            {metrics ? toSec(metrics.maxWait) : "—"}
+          </div>
+        </div>
+
+        <div className="bg-gray-50 rounded-md p-2">
+          <div className="text-xs text-gray-500">Pending</div>
+          <div className="text-lg font-bold">
+            {metrics ? metrics.pendingCount : "—"}
+          </div>
+        </div>
+
+        <div className="bg-gray-50 rounded-md p-2">
           <div className="text-xs text-gray-500">Avg Travel (s)</div>
           <div className="text-lg font-bold">
             {metrics ? toSec(metrics.avgTravel) : "—"}
           </div>
         </div>
 
-        <div className="bg-gray-50 rounded-md p-2">
-          <div className="text-xs text-gray-500">Utilization</div>
+        {/* <div className="bg-gray-50 rounded-md p-2">
+          <div className="text-xs text-gray-500">Util (since start)</div>
           <div className="text-lg font-bold">
-            {metrics ? (metrics.utilization * 100).toFixed(1) + "%" : "—"}
+            {metrics ? toPct(metrics.utilization) : "—"}
+          </div>
+        </div> */}
+
+        <div className="bg-gray-50 rounded-md p-2">
+          <div className="text-xs text-gray-500">Util (last 60s)</div>
+          <div className="text-lg font-bold">
+            {metrics ? toPct(metrics.recentUtil) : "—"}
+          </div>
+        </div>
+
+        <div className="bg-gray-50 rounded-md p-2">
+          <div className="text-xs text-gray-500">Throughput (req/min)</div>
+          <div className="text-lg font-bold">
+            {metrics ? metrics.throughputPerMin.toFixed(2) : "—"}
           </div>
         </div>
       </div>
@@ -118,6 +170,10 @@ export default function MetricsPanel({ pollInterval = 2000 }) {
             : "No samples yet"}
         </div>
       </div>
+
+      {/* <div className="mt-3 text-xs text-gray-500">
+        {metrics ? `Max pending wait: ${toSec(metrics.maxPendingWait)} s` : ""}
+      </div> */}
     </div>
   );
 }

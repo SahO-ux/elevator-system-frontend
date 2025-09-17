@@ -19,7 +19,9 @@ export default function ControlsPanel({ snapshot, onCmd }) {
     <div className="space-y-4">
       <div className="flex gap-2">
         <button
-          onClick={() => onCmd("start")}
+          onClick={() => {
+            onCmd("start");
+          }}
           className="px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600"
         >
           Start
@@ -31,7 +33,10 @@ export default function ControlsPanel({ snapshot, onCmd }) {
           Stop
         </button>
         <button
-          onClick={() => onCmd("reset")}
+          onClick={() => {
+            onCmd("reset");
+            setSpeed(1);
+          }}
           className="px-3 py-1 border rounded bg-gray-500 text-white hover:bg-gray-600"
         >
           Reset
@@ -126,7 +131,7 @@ export default function ControlsPanel({ snapshot, onCmd }) {
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <label className="w-28 text-sm">Req / min</label>
           <input
             type="range"
@@ -137,7 +142,7 @@ export default function ControlsPanel({ snapshot, onCmd }) {
             className="w-full"
           />
           <div className="w-14 text-right text-sm">{requestFreq}</div>
-        </div>
+        </div> */}
 
         <div className="flex gap-2">
           <button
@@ -155,7 +160,7 @@ export default function ControlsPanel({ snapshot, onCmd }) {
             Apply Config
           </button>
 
-          <button
+          {/* <button
             onClick={() => {
               setNElevators(3);
               setNFloors(12);
@@ -163,8 +168,8 @@ export default function ControlsPanel({ snapshot, onCmd }) {
             }}
             className="px-3 py-1 border rounded bg-gray-100"
           >
-            Reset UI
-          </button>
+            Reset Config
+          </button> */}
         </div>
       </div>
 

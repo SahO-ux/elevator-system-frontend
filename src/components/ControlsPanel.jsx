@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ControlsPanel({ snapshot, onCmd }) {
   const [speed, setSpeed] = useState(1);
@@ -75,11 +76,23 @@ export default function ControlsPanel({ snapshot, onCmd }) {
             className="w-16 border rounded px-2 py-1 text-sm"
           />
           <button
-            onClick={() =>
+            onClick={() => {
+              if (origin === destination)
+                return toast.error(
+                  "Origin and destination cannot be the same."
+                );
+              else if (origin < 1 || origin > floorCount)
+                return toast.error(
+                  `Origin must be between 1 and ${floorCount}.`
+                );
+              else if (destination < 1 || destination > floorCount)
+                return toast.error(
+                  `Destination must be between 1 and ${floorCount}.`
+                );
               onCmd("manualRequest", {
                 payload: { type: "external", origin, destination },
-              })
-            }
+              });
+            }}
             className="px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600"
           >
             Submit
@@ -133,7 +146,7 @@ export default function ControlsPanel({ snapshot, onCmd }) {
                 config: {
                   nElevators: nElevators,
                   nFloors: nFloors,
-                  ...(requestFreq > 0 ? { requestFrequency: requestFreq } : {}),
+                  ...(requestFreq > 0 ? { requestFreq } : {}),
                 },
               })
             }

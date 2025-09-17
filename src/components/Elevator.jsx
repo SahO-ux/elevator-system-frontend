@@ -9,6 +9,13 @@ export default function Elevator({ elevator, floorCount = 12, onCmd }) {
 
   const floors = Array.from({ length: floorCount }).map((_, i) => i + 1);
 
+  // capacity status
+  const capacity = elevator.capacity || 6;
+  const count = elevator.passengerCount || 0;
+  const nearThreshold = Math.floor(capacity * 0.8);
+  const isFull = count >= capacity;
+  const isNearFull = !isFull && count >= nearThreshold;
+
   return (
     <div className="relative" style={{ height: perFloor * floorCount }}>
       <div className="absolute left-0 bottom-0">
@@ -16,11 +23,26 @@ export default function Elevator({ elevator, floorCount = 12, onCmd }) {
           className="w-28 h-14 border border-gray-700 bg-white shadow-sm flex flex-col items-center justify-center transition-transform duration-500 ease-linear rounded"
           style={{ transform: `translateY(${-y}px)` }}
         >
-          <div className="font-bold text-sm">
-            #{elevator.id}{" "}
-            {elevator.passengerCount > 0 ? `• ${elevator.passengerCount}` : ""}
+          <div className="flex items-center gap-2">
+            <div className="font-bold text-sm">#{elevator.id}</div>
+
+            {/* capacity badge */}
+            {isFull ? (
+              <div className="text-xs bg-red-600 text-white px-2 py-0.5 rounded">
+                FULL
+              </div>
+            ) : isNearFull ? (
+              <div className="text-xs bg-yellow-400 text-black px-2 py-0.5 rounded">
+                NEAR
+              </div>
+            ) : count > 0 ? (
+              <div className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
+                {count}
+              </div>
+            ) : null}
           </div>
-          <div className="text-[11px] text-gray-600">
+
+          <div className="text-[11px] text-gray-600 mt-1">
             {elevator.direction} • {elevator.doorState}
           </div>
           <div className="text-xs mt-1">Floor {elevator.currentFloor}</div>
@@ -41,6 +63,7 @@ export default function Elevator({ elevator, floorCount = 12, onCmd }) {
               onClick={() => {
                 if (!onCmd) return;
                 if (dest === elevator.currentFloor) return;
+                // send internal request specifying elevatorId
                 onCmd("manualRequest", {
                   payload: {
                     type: "internal",

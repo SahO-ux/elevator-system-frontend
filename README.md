@@ -8,6 +8,7 @@ Follow the steps below to set up and run the project locally.
 ## ✨ Features
 
 - 🔄 **Real-time Simulation** — elevators move floor-by-floor with door open/close events. Its' achieved by using websockets.  
+- 🚅 **Increase Simulation speed** - increase simulation speeds by selecting desired simulation speed (1x, 2x, 5x).
 - 📊 **Live Metrics Panel** — average wait, max wait, average travel, throughput, utilization.  
 - 🏢 **Building View UI** — interactive floor call buttons and elevator cards with passenger counts.  
 - 🎯 **Manual & Scenario Testing** — spawn **Manual Requests**, **Morning Rush**, or **Random Burst**.  

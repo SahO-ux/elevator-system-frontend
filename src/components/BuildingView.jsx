@@ -53,7 +53,8 @@ export default function BuildingView({ snapshot, onCmd }) {
                     ),
                     10
                   );
-                  if (!dest || dest < 1 || dest > floorCount)
+                  if (!dest) return;
+                  if (dest < 1 || dest > floorCount)
                     return toast.error(
                       `Destination floor must be between 1 and ${floorCount}.`
                     );

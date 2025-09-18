@@ -36,7 +36,8 @@ export default function MetricsPanel({ pollInterval = 2000 }) {
           servedCount: data.servedCount || 0,
           utilization: data.utilization || 0,
           recentUtil: data.recentUtil || 0,
-          throughputPerMin: data.throughputPerMin || 0,
+          throughputPerMin:
+            data.throughputPerMin > 0 ? data.throughputPerMin : 0,
           pendingCount: data.pendingCount || 0,
           maxPendingWait: data.maxPendingWait || 0,
         };

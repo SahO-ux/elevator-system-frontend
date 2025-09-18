@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import Elevator from "./Elevator.jsx";
 
 export default function BuildingView({ snapshot, onCmd }) {
@@ -52,7 +53,14 @@ export default function BuildingView({ snapshot, onCmd }) {
                     ),
                     10
                   );
-                  if (!dest || dest < 1 || dest > floorCount) return;
+                  if (!dest || dest < 1 || dest > floorCount)
+                    return toast.error(
+                      `Destination floor must be between 1 and ${floorCount}.`
+                    );
+                  if (dest === floor)
+                    return toast.error(
+                      "Destination floor must be different from origin floor."
+                    );
                   onCmd("manualRequest", {
                     payload: {
                       type: "external",
@@ -61,12 +69,12 @@ export default function BuildingView({ snapshot, onCmd }) {
                     },
                   });
                 }}
-                disabled={floor === floorCount}
+                // disabled={floor === floorCount}
                 className="px-2 py-0.5 border rounded text-xs bg-blue-100 hover:bg-blue-200 disabled:opacity-40"
               >
-                ↑
+                ↕️
               </button>
-              <button
+              {/* <button
                 onClick={() => {
                   const dest = parseInt(
                     prompt(
@@ -88,7 +96,7 @@ export default function BuildingView({ snapshot, onCmd }) {
                 className="px-2 py-0.5 border rounded text-xs bg-blue-100 hover:bg-blue-200 disabled:opacity-40"
               >
                 ↓
-              </button>
+              </button> */}
             </div>
           </div>
         ))}

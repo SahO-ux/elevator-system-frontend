@@ -26,6 +26,15 @@ export default function App() {
         if (msg.type === "error")
           return toast.error(msg.message || "Server error");
         if (msg.type === "info") return toast.success(msg.message || "Info");
+        if (msg.type === "simStop") {
+          setSnapshot((prev) => {
+            return {
+              ...prev,
+              running: false,
+            };
+          });
+          return toast.success(msg.message || "Info");
+        }
       } catch (err) {
         console.log(err);
         toast.error("Error in socket response: " + err.message);

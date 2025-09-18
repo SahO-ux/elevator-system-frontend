@@ -43,7 +43,7 @@ npm run dev
 
 ### If simulation is inactive (initial state), that is start has not been clicked, then even if we try to click on rest of the buttons like Morning Rush, Random Burst, try to create manual request, etc. it will show an error message stating that simulation has to be in active state which is we should click start in order to start simulation
 
-- After starting simulation, you will be able to see a banner on top, stating the status of simulation (either active or inactive)
+- After starting simulation, you will see a text change on top banner from "Simulation is inactive..." to "Simulation is active".
 - You can now use all of the functionalities like adding a manual request by setting up values in from (pickup floor) and to (destination floor) fields which will simulate movement of the lifts.
   
 - You can use Morning Rush, which generates 50 random requests from the lobby floor (ground floor or in our case Floor 1) and destination floor will always will different than the lobby floor.

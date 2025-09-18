@@ -132,7 +132,7 @@ export default function MetricsPanel({ pollInterval = 2000 }) {
           </div>
         </div> */}
 
-        <div className="bg-gray-50 rounded-md p-2">
+        {/* <div className="bg-gray-50 rounded-md p-2">
           <div className="text-xs text-gray-500">Util (last 60s)</div>
           <div className="text-lg font-bold">
             {metrics ? toPct(metrics.recentUtil) : "—"}
@@ -144,7 +144,7 @@ export default function MetricsPanel({ pollInterval = 2000 }) {
           <div className="text-lg font-bold">
             {metrics ? metrics.throughputPerMin.toFixed(2) : "—"}
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="mt-3">

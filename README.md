@@ -55,6 +55,7 @@ npm run dev
 
 ### If simulation is inactive (initial state), that is start has not been clicked, then even if we try to click on rest of the buttons like Morning Rush, Random Burst, try to create manual request, etc. it will show an error message stating that simulation has to be in active state which is we should click start in order to start simulation
 
+- NOTE:- Each elevator has max capacity of 6 passengers.
 - After starting simulation, you will see a text change on top banner from "Simulation is inactive..." to "Simulation is active".
 - You can now use all of the functionalities like adding a manual request by setting up values in from (pickup floor) and to (destination floor) fields which will simulate movement of the lifts.
   

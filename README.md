@@ -5,6 +5,17 @@ Follow the steps below to set up and run the project locally.
 
 ---
 
+## ✨ Features
+
+- 🔄 **Real-time Simulation** — elevators move floor-by-floor with door open/close events. Its' achieved by using websockets.  
+- 📊 **Live Metrics Panel** — average wait, max wait, average travel, throughput, utilization.  
+- 🏢 **Building View UI** — interactive floor call buttons and elevator cards with passenger counts.  
+- 🎯 **Manual & Scenario Testing** — spawn **Manual Requests**, **Morning Rush**, or **Random Burst**.  
+- ⚡ **Configurable Parameters** — change number of elevators, floors, and simulation speed.  
+- 🚪 **Capacity Awareness** — elevators respect passenger capacity with *near full* and *full* states.  
+
+---
+
 ## 📦 Prerequisites
 
 - Node.js **>= 18**

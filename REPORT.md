@@ -47,7 +47,7 @@ Built with **React**, **TailwindCSS**, **Node.js (WebSocket)**, and a custom sch
 
 ## 📊 Performance Metrics
 
-We tested the simulation under three scenarios:
+We tested the simulation with 12 floors and 3 lifts under three scenarios:
 
 ### 1️⃣ Light Random Traffic  
 - 10 served requests.  

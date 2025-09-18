@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-export default function Elevator({ elevator, floorCount = 12, onCmd }) {
-  const perFloor = 48;
-  const y = (elevator.currentFloor - 1) * perFloor;
+export default function Elevator({ elevator, floorCount = 12, onCmd, perFloor = 48 }) {
+  // use perFloor from props (default kept at 48 for backward compat)
+  const y = (elevator.currentFloor - 1) * perFloor; // pixels from bottom
 
   const [dest, setDest] = useState(elevator.currentFloor);
   useEffect(() => setDest(elevator.currentFloor), [elevator.currentFloor]);
@@ -31,36 +31,23 @@ export default function Elevator({ elevator, floorCount = 12, onCmd }) {
 
   return (
     <div className="relative" style={{ height: perFloor * floorCount }}>
-      <div className="absolute left-0 bottom-0">
+      {/* anchor with bottom positioning so it aligns exactly with BuildingView rows */}
+      <div
+        className="absolute left-0"
+        style={{
+          bottom: `${y}px`,
+          // keep a smooth movement transition (adjust duration if you like)
+          transition: "bottom 360ms linear, transform 200ms ease",
+        }}
+      >
         <div
           className="w-32 h-20 border border-gray-700 bg-white shadow-md flex flex-col items-center justify-center transition-transform duration-500 ease-linear rounded-lg"
-          style={{ transform: `translateY(${-y}px)` }}
+          // removed translateY transform — positioning is handled by bottom
         >
           {/* Header row with elevator ID + passenger badge */}
           <div className="flex items-center gap-2">
             <div className="font-bold text-sm">#{elevator.id}</div>
 
-            {/* Passenger badge (always visible) */}
-            {/* <div
-              aria-label={`Passengers: ${count}`}
-              className="text-xs font-semibold px-2 py-0.5 rounded-full"
-              style={{
-                minWidth: 26,
-                textAlign: "center",
-                background: isFull
-                  ? "#dc2626"
-                  : isNearFull
-                  ? "#facc15"
-                  : "#bfdbfe",
-                color: isFull ? "#fff" : isNearFull ? "#000" : "#1e3a8a",
-                boxShadow: pulse ? "0 0 0 6px rgba(99,102,241,0.12)" : "none",
-                transform: pulse ? "scale(1.08)" : "scale(1)",
-                transition: "transform 220ms ease, box-shadow 300ms ease",
-              }}
-            >
-              {count}
-            </div> */}
-            
             <div className="flex items-center gap-1">
               <div
                 aria-label={`Passengers: ${count}`}

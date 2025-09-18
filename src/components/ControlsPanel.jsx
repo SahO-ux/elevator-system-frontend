@@ -9,7 +9,9 @@ export default function ControlsPanel({ snapshot, onCmd }) {
   // new config fields
   const [nElevators, setNElevators] = useState(3);
   const [nFloors, setNFloors] = useState(12);
-  const [requestFreq, setRequestFreq] = useState(0); // requests per minute (UI only for now)
+
+  // TBD
+  // const [requestFreq, setRequestFreq] = useState(0); // requests per minute (UI only for now)
 
   const floorCount = snapshot?.elevators?.length
     ? snapshot.elevators?.[0]?.buildingFloors || 12
@@ -22,7 +24,7 @@ export default function ControlsPanel({ snapshot, onCmd }) {
           onClick={() => {
             onCmd("start");
           }}
-          className="px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600"
+          className="px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600"
         >
           Start
         </button>
@@ -151,11 +153,11 @@ export default function ControlsPanel({ snapshot, onCmd }) {
                 config: {
                   nElevators: nElevators,
                   nFloors: nFloors,
-                  ...(requestFreq > 0 ? { requestFreq } : {}),
+                  // ...(requestFreq > 0 ? { requestFreq } : {}),
                 },
               })
             }
-            className="px-3 py-1 border rounded bg-indigo-600 text-white hover:bg-indigo-700"
+            className="px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600"
           >
             Apply Config
           </button>
@@ -176,13 +178,13 @@ export default function ControlsPanel({ snapshot, onCmd }) {
       <div className="flex gap-2">
         <button
           onClick={() => onCmd("scenario", { name: "morningRush" })}
-          className="px-3 py-1 border rounded bg-yellow-500 text-white hover:bg-yellow-600"
+          className="px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600"
         >
           Morning Rush
         </button>
         <button
           onClick={() => onCmd("scenario", { name: "randomBurst" })}
-          className="px-3 py-1 border rounded bg-purple-500 text-white hover:bg-purple-600"
+          className="px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600"
         >
           Random Burst
         </button>

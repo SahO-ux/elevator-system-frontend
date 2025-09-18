@@ -41,7 +41,7 @@ export default function Elevator({ elevator, floorCount = 12, onCmd }) {
             <div className="font-bold text-sm">#{elevator.id}</div>
 
             {/* Passenger badge (always visible) */}
-            <div
+            {/* <div
               aria-label={`Passengers: ${count}`}
               className="text-xs font-semibold px-2 py-0.5 rounded-full"
               style={{
@@ -59,6 +59,35 @@ export default function Elevator({ elevator, floorCount = 12, onCmd }) {
               }}
             >
               {count}
+            </div> */}
+            
+            <div className="flex items-center gap-1">
+              <div
+                aria-label={`Passengers: ${count}`}
+                className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                style={{
+                  minWidth: 26,
+                  textAlign: "center",
+                  background: isFull
+                    ? "#dc2626"
+                    : isNearFull
+                    ? "#facc15"
+                    : "#bfdbfe",
+                  color: isFull ? "#fff" : isNearFull ? "#000" : "#1e3a8a",
+                  boxShadow: pulse ? "0 0 0 6px rgba(99,102,241,0.12)" : "none",
+                  transform: pulse ? "scale(1.08)" : "scale(1)",
+                  transition: "transform 220ms ease, box-shadow 300ms ease",
+                }}
+              >
+                {count}
+              </div>
+              {count > 0 ? (
+                <span className="text-[10px] text-gray-600">{`passenger${
+                  count > 1 ? "s" : ""
+                }`}</span>
+              ) : (
+                <></>
+              )}
             </div>
 
             {/* Optional extra FULL/NEAR badge */}

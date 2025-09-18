@@ -51,7 +51,7 @@ npm run dev
   
 - If you want to change number of total floors in a building or number of lifts, you have to stop simulation by using "Stop" button, and then under Simulation Config, you can input values for Elevators and Floors and then click on "Apply Config", and then click "Start" to start simulation and then again you can perform the actions which are mentioned above.
 
-- In Building View, you can see "Call" button at each floor, using which you can send a request to call a lift, simply click on it and enter dstination number in prompt (due to time constraint, havent' used any external lib for modals).
+- In Building View, you can see "Call" button at each floor, using which you can send a request to call a lift, simply click on it and enter destination number in prompt (due to time constraint, havent' used any external lib for modals).
 - Inside each lift, you can see a small select box, using which passenger can select the floor, he wants to go after hitting "Send" button beside it
 
 - In Live Metrics section, you can view metrics like Served requests in "Served", Avg. Wait(s), Max. Wait(s), Pending (pending requests) and Avg. Travel(s) using all generated requests (be it from Manual, Morning Rush, Random Burst, etc) which were generated in simulation session, which is when the backend server was started.

@@ -46,7 +46,7 @@ export default function ControlsPanel({ snapshot, onCmd }) {
       </div>
 
       <div>
-        <label className="mr-2 text-sm">Speed:</label>
+        <label className="mr-2 text-sm">Simulation Speed:</label>
         <select
           value={speed}
           onChange={(e) => {

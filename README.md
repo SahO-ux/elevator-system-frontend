@@ -59,7 +59,7 @@ npm run dev
 - After starting simulation, you will see a text change on top banner from "Simulation is inactive..." to "Simulation is active".
 - You can now use all of the functionalities like adding a manual request by setting up values in from (pickup floor) and to (destination floor) fields which will simulate movement of the lifts.
   
-- You can use Morning Rush, which generates 50 random requests from the lobby floor (ground floor or in our case Floor 1) and destination floor will always be different than the lobby floor.
+- You can use Morning Rush, which generates 50 random requests out of which 35 request will be from the lobby floor (ground floor or in our case Floor 1) and rest 15 will be from other floors except lobby.
 - You can use Random Burst, which generates 100 random requests having both random pickup and destination floors, where destination floor is not equal to pickup floor.
   
 - If you want to change number of total floors in a building or number of lifts, you have to stop simulation by using "Stop" button, and then under Simulation Config, you can input values for Elevators and Floors and then click on "Apply Config", and then click "Start" to start simulation and then again you can perform the actions which are mentioned above.

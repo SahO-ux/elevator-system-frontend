@@ -8,7 +8,7 @@ import MetricsPanel from "./components/MetricsPanel.jsx";
 const WS_URL =
   window.location.hostname === "localhost"
     ? "ws://localhost:8081/ws"
-    : "wss://elevator-system-backend.vercel.app/ws";
+    : "wss://elevator-system-backend-2oqe.onrender.com/ws";
 
 export default function App() {
   const [snapshot, setSnapshot] = useState(null);

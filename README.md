@@ -61,6 +61,7 @@ npm run dev
   
 - You can use Morning Rush, which generates 50 random requests out of which 35 request will be from the lobby floor (ground floor or in our case Floor 1) and rest 15 will be from other floors except lobby.
 - You can use Random Burst, which generates 100 random requests having both random pickup and destination floors, where destination floor is not equal to pickup floor.
+- For both scenarios, Morning Rush and Random Burst, if you want to create more requests in bulk you can use endpoint "api/scenario" which accepts request body as { scenario: "morningRush", count } and for random burst { scenario: "randomBurst", count: 150 }.
   
 - If you want to change number of total floors in a building or number of lifts, you have to stop simulation by using "Stop" button, and then under Simulation Config, you can input values for Elevators and Floors and then click on "Apply Config", and then click "Start" to start simulation and then again you can perform the actions which are mentioned above.
 

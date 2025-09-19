@@ -8,7 +8,7 @@ import MetricsPanel from "./components/MetricsPanel.jsx";
 const WS_URL =
   window.location.hostname === "localhost"
     ? "ws://localhost:8081/ws"
-    : `wss://${import.meta.env.WS_URL}/ws`;
+    : `${import.meta.env.WS_URL}`;
 
 export default function App() {
   const [snapshot, setSnapshot] = useState(null);

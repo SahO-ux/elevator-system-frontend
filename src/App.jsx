@@ -65,11 +65,11 @@ export default function App() {
     <div className="flex flex-col min-h-screen bg-gray-50 font-sans">
       {/* Simulation status bar */}
       {snapshot?.running ? (
-        <div className="bg-green-100 text-green-800 text-sm text-center py-2 shadow">
+        <div className="sticky top-0 z-50 bg-green-100 text-green-800 text-sm text-center py-2 shadow">
           Simulation is active...
         </div>
       ) : (
-        <div className="bg-gray-200 text-gray-600 text-sm text-center py-2 shadow">
+        <div className="sticky top-0 z-50 bg-gray-200 text-gray-600 text-sm text-center py-2 shadow">
           Simulation is inactive. Click "Start" to begin.
         </div>
       )}

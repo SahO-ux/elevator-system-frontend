@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function ControlsPanel({ snapshot, onCmd }) {
+export default function ControlsPanel({ snapshot, onCmd, isSocketConnected }) {
   const [speed, setSpeed] = useState(1);
   const [origin, setOrigin] = useState(1);
   const [destination, setDestination] = useState(2);
@@ -24,13 +24,19 @@ export default function ControlsPanel({ snapshot, onCmd }) {
           onClick={() => {
             onCmd("start");
           }}
-          className="px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600"
+          disabled={!isSocketConnected}
+          className={`${
+            !isSocketConnected ? "disabled:bg-blue-400" : ""
+          } px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600`}
         >
           Start
         </button>
         <button
           onClick={() => onCmd("stop")}
-          className="px-3 py-1 border rounded bg-red-500 text-white hover:bg-red-600"
+          disabled={!isSocketConnected}
+          className={`${
+            !isSocketConnected ? "disabled:bg-red-400" : ""
+          } px-3 py-1 border rounded bg-red-500 text-white hover:bg-red-600`}
         >
           Stop
         </button>
@@ -39,7 +45,10 @@ export default function ControlsPanel({ snapshot, onCmd }) {
             onCmd("reset");
             setSpeed(1);
           }}
-          className="px-3 py-1 border rounded bg-gray-500 text-white hover:bg-gray-600"
+          disabled={!isSocketConnected}
+          className={`${
+            !isSocketConnected ? "disabled:bg-gray-400" : ""
+          } px-3 py-1 border rounded bg-gray-500 text-white hover:bg-gray-600`}
         >
           Reset
         </button>
@@ -54,7 +63,10 @@ export default function ControlsPanel({ snapshot, onCmd }) {
             setSpeed(s);
             onCmd("speed", { speed: s });
           }}
-          className="border rounded px-2 py-1 text-sm"
+          disabled={!isSocketConnected}
+          className={`${
+            !isSocketConnected ? "disabled:cursor-not-allowed" : ""
+          } border rounded px-2 py-1 text-sm`}
         >
           <option value={1}>1x</option>
           <option value={2}>2x</option>
@@ -70,17 +82,23 @@ export default function ControlsPanel({ snapshot, onCmd }) {
             type="number"
             value={origin}
             min="1"
+            disabled={!isSocketConnected}
             onChange={(e) => setOrigin(Number(e.target.value))}
-            className="w-16 border rounded px-2 py-1 text-sm"
+            className={`${
+              !isSocketConnected ? "disabled:cursor-not-allowed" : ""
+            } w-16 border rounded px-2 py-1 text-sm`}
           />
           <label className="text-sm">To</label>
           <input
             type="number"
             value={destination}
             min="1"
+            disabled={!isSocketConnected}
             max={floorCount}
             onChange={(e) => setDestination(Number(e.target.value))}
-            className="w-16 border rounded px-2 py-1 text-sm"
+            className={`${
+              !isSocketConnected ? "disabled:cursor-not-allowed" : ""
+            } w-16 border rounded px-2 py-1 text-sm`}
           />
           <button
             onClick={() => {
@@ -100,7 +118,10 @@ export default function ControlsPanel({ snapshot, onCmd }) {
                 payload: { type: "external", origin, destination },
               });
             }}
-            className="px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600"
+            disabled={!isSocketConnected}
+            className={`${
+              !isSocketConnected ? "disabled:bg-blue-400" : ""
+            } px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600`}
           >
             Submit
           </button>
@@ -117,8 +138,11 @@ export default function ControlsPanel({ snapshot, onCmd }) {
             type="number"
             min="1"
             value={nElevators}
+            disabled={!isSocketConnected}
             onChange={(e) => setNElevators(Number(e.target.value))}
-            className="w-20 border rounded px-2 py-1 text-sm"
+            className={`${
+              !isSocketConnected ? "disabled:cursor-not-allowed" : ""
+            } w-20 border rounded px-2 py-1 text-sm`}
           />
         </div>
 
@@ -127,9 +151,12 @@ export default function ControlsPanel({ snapshot, onCmd }) {
           <input
             type="number"
             min="2"
+            disabled={!isSocketConnected}
             value={nFloors}
             onChange={(e) => setNFloors(Number(e.target.value))}
-            className="w-20 border rounded px-2 py-1 text-sm"
+            className={`${
+              !isSocketConnected ? "disabled:cursor-not-allowed" : ""
+            } w-20 border rounded px-2 py-1 text-sm`}
           />
         </div>
 
@@ -157,7 +184,10 @@ export default function ControlsPanel({ snapshot, onCmd }) {
                 },
               })
             }
-            className="px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600"
+            disabled={!isSocketConnected}
+            className={`${
+              !isSocketConnected ? "disabled:bg-blue-400" : ""
+            } px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600`}
           >
             Apply Config
           </button>
@@ -178,13 +208,19 @@ export default function ControlsPanel({ snapshot, onCmd }) {
       <div className="flex gap-2">
         <button
           onClick={() => onCmd("scenario", { name: "morningRush" })}
-          className="px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600"
+          disabled={!isSocketConnected}
+          className={`${
+            !isSocketConnected ? "disabled:bg-green-400" : ""
+          } px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600`}
         >
           Morning Rush
         </button>
         <button
           onClick={() => onCmd("scenario", { name: "randomBurst" })}
-          className="px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600"
+          disabled={!isSocketConnected}
+          className={`${
+            !isSocketConnected ? "disabled:bg-green-400" : ""
+          } px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600`}
         >
           Random Burst
         </button>

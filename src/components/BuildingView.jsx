@@ -1,11 +1,14 @@
 import toast from "react-hot-toast";
+
 import Elevator from "./Elevator.jsx";
+import InlineSpinner from "./InlineSpinner.jsx";
 
 export default function BuildingView({ snapshot, onCmd }) {
   if (!snapshot) {
     return (
       <div className="h-96 flex items-center justify-center text-gray-500">
-        Waiting for simulation...
+        <InlineSpinner />
+        Establishing Socket Connection, please wait...
       </div>
     );
   }

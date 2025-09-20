@@ -14,11 +14,16 @@ export default function App() {
   const [snapshot, setSnapshot] = useState(null);
   const wsRef = useRef(null);
 
+  const [isSocketConnected, setIsSocketConnected] = useState(false);
+
   useEffect(() => {
     const ws = new WebSocket(WS_URL);
     wsRef.current = ws;
 
-    ws.addEventListener("open", () => console.log("WS connected"));
+    ws.addEventListener("open", () => {
+      setIsSocketConnected(true);
+      console.log("WS connected");
+    });
     ws.addEventListener("message", (ev) => {
       try {
         const msg = JSON.parse(ev.data);
@@ -40,7 +45,10 @@ export default function App() {
         toast.error("Error in socket response: " + err.message);
       }
     });
-    ws.addEventListener("close", () => console.log("WS closed"));
+    ws.addEventListener("close", () => {
+      console.log("WS closed");
+      setIsSocketConnected(false);
+    });
     ws.addEventListener("error", (e) => console.error("WS error", e));
 
     return () => {
@@ -70,7 +78,11 @@ export default function App() {
       <div className="flex gap-6 p-6 flex-1">
         <div className="w-80 space-y-6">
           <h2 className="text-xl font-bold text-gray-800">Controls</h2>
-          <ControlsPanel snapshot={snapshot} onCmd={sendCmd} />
+          <ControlsPanel
+            isSocketConnected={isSocketConnected}
+            snapshot={snapshot}
+            onCmd={sendCmd}
+          />
           <MetricsPanel pollInterval={2000} />
         </div>
 

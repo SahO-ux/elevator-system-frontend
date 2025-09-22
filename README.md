@@ -4,6 +4,7 @@ This repository contains the source code for the Elevator Simulation project.
 Follow the steps below to set up and run the project locally.
 
 ---
+### [Live Deployed URL](https://elevator-system-frontend-eight.vercel.app/)
 
 ## ✨ Features
 

@@ -1,0 +1,4 @@
+| Problem                | Link                                                                                 | Category           | Notes                                                     | Status           |
+| ---------------------- | ------------------------------------------------------------------------------------ | ------------------ | --------------------------------------------------------- | ---------------- |
+| Sanitize Nested Object | [https://leetcode.com/playground/HwsGyQHk](https://leetcode.com/playground/HwsGyQHk) | Recursion, Objects | Remove falsy & empty arrays; recursion with path building | 🔄 Need Revision |
+| Custom Binary Search   | [https://leetcode.com/playground/xyz456](https://leetcode.com/playground/xyz456)     | Binary Search      | Handles duplicates; O(log n)                              | ✅ Solved         |
